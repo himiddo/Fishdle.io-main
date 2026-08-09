@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb58ab06913de814888dee36902dd24a, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: Assembly-CSharp::GameConfig
+  boat1BaseCost: 100
+  boatCostMultiplier: 2
+  boat1BaseGeneration: 1
+  boatGenerationMultiplier: 2
+  upgradeBonus: 0.5
+  upgradeCostMultiplier: 1.25
+  fishPerClick: 3
+  clickUpgradeBonus: 1
+  clickUpgradeBaseCost: 50
+  clickUpgradeCostMultiplier: 1.6
+  maxClickLevel: 15
+  prestigeMultiplier: 1.5
+  firstPrestigeCost: 2000
+  prestigeCostMultiplier: 3
+  fossilFishPerSecBonus: 0.1
+  fossilSellMultiplierBonus: 0.05
+  fossilSpawnRateBonus: 0.2
+  maxEquippedFossils: 5
+  minPrice: 0.5
+  maxPrice: 2.5
+  priceChangeInterval: 60
