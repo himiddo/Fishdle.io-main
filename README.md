@@ -1,6 +1,6 @@
 # Fishdle.io
 
-A desktop-themed **idle fishing game** built solo in Unity 6. Cast into the ocean to catch fish, sell them into a fluctuating market, reinvest in an automated fishing fleet, and prestige for permanent multipliers — all wrapped in a retro pixel/desktop-OS aesthetic where each menu opens as its own "window."
+A desktop-themed idle fishing game built in Unity. Cast into the ocean to catch fish, sell them into a market that changes over time, invest in an automated fishing fleet, and prestige for permanent multipliers — all wrapped in a retro pixel/desktop-OS aesthetic.
 
 ## Gameplay
 
@@ -19,7 +19,7 @@ A desktop-themed **idle fishing game** built solo in Unity 6. Cast into the ocea
 | Move along the beach | `WASD` or arrow keys |
 | Catch a fish | **Left-click the ocean** |
 | Open a menu | Click a **desktop folder** (bottom-right: Sell, Boats, Fossils, Tapping, Prestige) |
-| Play a fossil minigame | Walk up to a washed-up fossil and click it |
+| Play a fossil minigame | Walk up to a fossil and click it |
 
 ---
 
@@ -27,7 +27,7 @@ A desktop-themed **idle fishing game** built solo in Unity 6. Cast into the ocea
 
 System wiring in general, as this project is more of a showcase in the internal system.
 
-- **Config-driven balance.** Every tunable number lives in a single [`GameConfig`](Assets/Scripts/Core/GameConfig.cs) `ScriptableObject`. Designers/testers can create a config asset and rebalance the entire game from the Inspector without touching code. Progression is expressed as formulas (`GetBoatCost`, `GetPrestigeCost`, …) rather than hard-coded tables.
+- **Config-driven balance.** Every tunable number lives in a single [`GameConfig`](Assets/Scripts/Core/GameConfig.cs) `ScriptableObject`. A config asset is thus created to rebalance the entire game from the Inspector without touching code. Progression is expressed as formulas (`GetBoatCost`, `GetPrestigeCost`, …) rather than hard-coded tables.
 
 - **Push-model stats hub.** [`StatsManager`](Assets/Scripts/Managers/StatsManager.cs) is the single source of derived stats (fish/sec, multipliers, fossil bonuses). It recomputes and raises an event on change; UI subscribes instead of polling every frame.
 
@@ -37,48 +37,17 @@ System wiring in general, as this project is more of a showcase in the internal 
   - The prestige bonus is applied once, at the point of sale — not baked into per-second generation — which keeps the generation numbers clean and makes the multiplier legible at the money layer.
   - Fossil bonuses are multiplicative — an earlier additive fish/sec design was overpowered and flattened progression.
 
-- **Finite vs. infinite tracks on purpose.** Tap upgrades are capped; boats and prestige are unbounded. The tap track is an intentional early-game crutch that becomes irrelevant once idle income scales.
+- **Finite vs. infinite tracks on purpose.** Tap upgrades are capped; boats and prestige are unbounded. The tap track is an intentional early-game boost which becomes stale to make way for the future game.
 
-- **Save system.** JSON persistence via `JsonUtility` to `Application.persistentDataPath`, storing money, fish, prestige/click levels, owned boats, and collected fossils.
-
-- **New Input System** for movement and click handling; ocean clicks are raycast against an `Ocean` physics layer and ignore clicks that land on UI.
+- **Save system.** JSON persistence via `JsonUtility` to `Application.persistentDataPath`, storing money, fish, prestige/click levels, owned boats, and collected fossils. Do not worry about your save progress.
 ---
 
-## Project Structure
-
-```
-Assets/
-├── Scenes/
-│   └── Game.unity                 # the single gameplay scene
-├── Scripts/
-│   ├── Core/
-│   │   ├── GameConfig.cs           # ScriptableObject: all balance values + progression formulas
-│   │   └── NumberFormatter.cs      # human-readable big-number formatting
-│   ├── Managers/
-│   │   ├── ConfigManager.cs        # exposes the active GameConfig
-│   │   ├── SaveManager.cs          # JSON load/save, save-data schema
-│   │   ├── StatsManager.cs         # derived-stat hub + change event
-│   │   ├── MoneyManager.cs         # currency, selling
-│   │   ├── PriceManager.cs         # fluctuating market price
-│   │   ├── FishingSystem.cs        # click-to-fish, tap upgrades
-│   │   ├── BoatManager.cs          # boat ownership, generation, slots
-│   │   ├── PrestigeManager.cs      # prestige cost/multiplier/reset
-│   │   ├── FossilManager.cs        # fossil rolls, equip bonuses
-│   │   ├── FossilPickup.cs         # beach pickups + minigame trigger
-│   │   ├── FossilMinigame.cs       # the dig minigame
-│   │   ├── BackgroundManager.cs    # time-of-day background switching
-│   │   ├── UIManager.cs            # HUD coordination
-│   │   └── *UI / *MenuUI / *List   # per-window UI controllers
-│   └── PlayerController.cs          # top-down movement (new Input System)
-├── Sprites/                        # backgrounds, boat, fossils, UI chrome, icons
-└── Fonts/                          # GeistPixel SDF font + material variants
-```
 
 ---
 
-## Play It
+## How to Play It
 
-**Download the latest Windows build from the [Releases page](../../releases).** No Unity required.
+**Download the latest Windows build from the [Releases page](../../releases).**
 
 1. Download `Fishdle_io-Windows.zip` and **unzip the whole folder** (keep every file together).
 2. Run `Fishdle_io.exe`.
